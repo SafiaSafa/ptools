@@ -6,6 +6,11 @@ import sys
 import re
 from collections import defaultdict
 
+import subprocess
+
+def demangle(funcname):
+   return subprocess.check_output(['./demangle', funcname])
+
 pattern = re.compile("function (.+) called ([0-9]+)") 
 
 f = sys.argv[1]
@@ -21,4 +26,4 @@ with open(f) as infile:
          dico[key]+=int(matched.groups()[1])
 
 for k,v in dico.items():
-   print k,v
+   print demangle(k),v
