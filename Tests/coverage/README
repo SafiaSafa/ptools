@@ -1,0 +1,16 @@
+# coverage tests: manual instructions
+
+
+#remove every object file:
+rm -rf build/
+
+# compile with these options:
+CPPFLAGS="-fkeep-inline-functions -fno-inline -fprofile-arcs -ftest-coverage --coverage -O0" LDFLAGS="--coverage" python setup.py install
+
+#run unit tests as usual
+
+#use coverage.sh to analyse which functions were called or not
+
+bash coverage.sh
+
+
