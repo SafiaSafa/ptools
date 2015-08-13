@@ -6,7 +6,9 @@ python:
 install:
   - "pip install cython"
   - "sh ./install-deps.sh"
-  - "python setup.py build"
+  - "CPPFLAGS="-fkeep-inline-functions -fno-inline -fprofile-arcs -ftest-coverage --coverage -O0" LDFLAGS="--coverage" python setup.py build"
   - "python setup.py install"
 # command to run tests
-script: "cd Tests && make testpython"
+script: 
+    - "cd Tests && make testpython"
+    - "cd Tests/coverage && make coverage"
