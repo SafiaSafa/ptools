@@ -9,7 +9,13 @@ from collections import defaultdict
 import subprocess
 
 def demangle(funcname):
-   return subprocess.check_output(['./demangle', funcname])
+   try:
+      demangled = subprocess.check_output(['./demangle', funcname])
+   except subprocess.CalledProcessError:
+      demangled = funcname
+   return demangled
+      
+   
 
 pattern = re.compile("function (.+) called ([0-9]+)") 
 
@@ -25,5 +31,11 @@ with open(f) as infile:
          key = matched.groups()[0].replace(' ','_')
          dico[key]+=int(matched.groups()[1])
 
+lst = []
 for k,v in dico.items():
-   print demangle(k),v
+   lst.append( (demangle(k).strip(),v))
+
+lst.sort(key=lambda i: i[1], reverse=True)
+for i,j in lst:
+   print i,j
+
