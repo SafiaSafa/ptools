@@ -18,7 +18,7 @@ done
 
 #get a summary of functions never called:
 python coverage_summary.py zerocov_raw.txt | egrep -v -i -e "^__pyx" \
-    | grep -v pthread | grep -v gthread | grep -v gnu_cxx | grep -v bswap 
+    | grep -v pthread | grep -v gthread | grep -v gnu_cxx | grep -v bswap | grep "PTools::"
 
 
 echo done
